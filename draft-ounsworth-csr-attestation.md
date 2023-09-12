@@ -72,45 +72,45 @@ Authority, a PKI end entity may wish to provide evidence of the security
 properties of the environment in which the private key is stored to be verified
 by a relying party such as the Registration Authority or the Certificate
 Authority. This specification provides a newly defined attestation attribute
-for carrying remote attestations in PKCS#10 Certification Requests (CSR) {{RFC2986}}.
+to convey remote attestation Evidence in PKCS#10 Certification Requests (CSR) {{RFC2986}}.
 
 As outlined in the RATS Architecture {{RFC9334}}, an Attester (typically
 a device) produces a signed collection of Evidence about its running environment,
-often refered to as an "attestation". A Relying Party may consult that
-attestation in making policy decisions about the trustworthiness of the
-entity being attested. {{architecture}} overviews how the various roles
+often referred to as an "attestation". A Relying Party may consult that
+Evidence in making policy decisions about the trustworthiness of the
+entity generating that Evidence. {{architecture}} provides the basis on how the various roles
 in the RATS Archictecture map to a certificate requester and a CA/RA.
 
-At the time of writing, several standardized and proprietary attestation technologies
+At the time of writing, several standardized and proprietary remote attestation technologies
 are in use. This specification thereby tries to be technology agnostic with
-regards to the transport of the produced signed claims.
+regards to the transport of the produced signed claims that constitute remote attestation Evidence.
 
-This document is concerned only about the transport of an attesttation
-inside a CSR and makes minimal assumptions about its content or format.
-We assume that an attestation can be broken into the following components:
+This document is concerned only about the transport of attestation Evidence and auxiliary certification paths
+inside a CSR and makes minimal assumptions about Evidence content or format.
+Two types of remote attestation statements are in scope of this document
 
-1. A set of certificates typically containing one or more certificate chains
+1. A set of certificates typically containing one or more certification paths
    rooted in a device manufacture trust anchor and the leaf certificate being
-   on the device in question.
-1. An attestation statement containing Evidence.
+   on the device in question
+2. The attestation Evidence
 
-This document creates two ATTRIBUTE/Attribute definitions. The first
+Correspondingly, this document creates two ATTRIBUTE/Attribute definitions. The first
 Attribute may be used to carry a set of certificates or public keys that
-may be necessary to validate evidence. The second Attribute carries a
+may be necessary to validate Evidence. The second Attribute carries a
 structure that may be used to carry key attestation statements, signatures
-and related data.
+and related remote attestation data (Evidence).
 
-A CSR may contain one or more attestations, for example a key attestation
-asserting the storage properties of the private key as well as a platform
-attestation asserting the firmware version and other general properties
-of the device, or multiple key attestations signed by certificate chains
+A CSR may contain one or more attestation statements, for example a key attestation
+asserting the storage properties of the private key as well as platform
+attestation Evidence asserting the firmware version and other general properties
+of the device, or multiple key attestations signed by certification paths
 on different cryptographic algorithms.
 
 With these attributes, an RA or CA has additional
 information about whether to issue a certificate and what information
 to populate into the certificate. The scope of this document is, however,
-limited to the transport of evidence via a CSR. The exact format of the
-attestation data being carried is defined in various standard and proprietary
+limited to the transport of Evidence via a CSR. The exact format of the
+Evidence being carried is defined in various standard and proprietary
 specifications.
 
 # Conventions and Definitions
